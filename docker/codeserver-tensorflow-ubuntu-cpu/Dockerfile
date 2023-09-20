@@ -47,7 +47,7 @@ SHELL ["/bin/bash", "-c"]
 # Install useful linux packages
 COPY packages.txt /tmp/packages.txt
 RUN apt update && \
-    apt install -y $(cat /tmp/packages.txt) && \
+    apt install -yq $(cat /tmp/packages.txt) && \
     rm -rf /var/lib/apt/lists
 
 # Install Github CLI
