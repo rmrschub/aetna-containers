@@ -46,8 +46,8 @@ SHELL ["/bin/bash", "-c"]
 
 # Install useful linux packages
 COPY packages.txt /tmp/packages.txt
-RUN apt update && \
-    apt install -y $(cat /tmp/packages.txt) && \
+RUN apt-get update && \
+    apt-get install -y $(cat /tmp/packages.txt) && \
     rm -rf /var/lib/apt/lists
 
 # Create user and set required ownership
