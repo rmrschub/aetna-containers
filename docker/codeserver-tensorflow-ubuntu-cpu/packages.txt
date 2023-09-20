@@ -9,7 +9,6 @@ htop
 rsync
 openssh-client
 git
-gh
 less
 gnupg
 gnupg2
