@@ -4,11 +4,12 @@ LABEL org.opencontainers.image.authors="René Schubotz"
 LABEL org.opencontainers.image.source="https://github.com/rmrschub/aetna-containers/"
 
 # Install useful linux packages
-RUN apt update && \
-    apt install -y \
-        tar \
-        xz-utils \
-        tar && \
+COPY packages.txt /tmp/packages.txt
+RUN apt-get update && \
+    apt-get install software-properties-common && \
+    add-apt-repository ppa:deadsnakes/ppa && \
+    sudo apt-get update && \
+    apt-get install -yq $(cat /tmp/packages.txt) && \
     rm -rf /var/lib/apt/lists
 
 # s6-overlay

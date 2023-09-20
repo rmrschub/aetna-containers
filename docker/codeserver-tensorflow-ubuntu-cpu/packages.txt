@@ -19,5 +19,5 @@ vim
 wget
 zip
 apt-transport-https
-python3
+python3.11
 python3-pip
