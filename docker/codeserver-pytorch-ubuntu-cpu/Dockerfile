@@ -46,11 +46,11 @@ SHELL ["/bin/bash", "-c"]
 
 # Install useful linux packages
 COPY packages.txt /tmp/packages.txt
-RUN apt-get update && \
-    apt-get install software-properties-common && \
-    add-apt-repository ppa:deadsnakes/ppa && \
-    sudo apt-get update && \
-    apt-get install -yq $(cat /tmp/packages.txt) && \
+RUN apt-get update -yq && \
+    apt-get install -yq --no-install-recommends software-properties-common && \
+    add-apt-repository -y ppa:deadsnakes/ppa && \
+    apt-get update -yq && \
+    apt-get install -yq --no-install-recommends $(cat /tmp/packages.txt) && \
     rm -rf /var/lib/apt/lists
 
 # Install Github CLI
