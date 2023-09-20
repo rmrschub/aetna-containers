@@ -3,18 +3,16 @@ FROM ubuntu:18.04
 LABEL org.opencontainers.image.authors="René Schubotz"
 LABEL org.opencontainers.image.source="https://github.com/rmrschub/aetna-containers/"
 
-# Install useful linux packages
-COPY packages.txt /tmp/packages.txt
-RUN apt-get update -yq && \
-    apt-get install -yq --no-install-recommends software-properties-common && \
-    add-apt-repository -y ppa:deadsnakes/ppa && \
-    apt-get update -yq && \
-    apt-get install -yq --no-install-recommends $(cat /tmp/packages.txt) && \
-    rm -rf /var/lib/apt/lists
-
 # s6-overlay
 ARG S6_ARCH="x86_64"
 ARG S6_OVERLAY_VERSION=3.1.2.1
+
+RUN apt update && \
+    apt install -y \
+        tar \
+        xz-utils \
+        tar && \
+    rm -rf /var/lib/apt/lists;
 
 ADD https://github.com/just-containers/s6-overlay/releases/download/v${S6_OVERLAY_VERSION}/s6-overlay-noarch.tar.xz /tmp
 RUN tar -C / -Jxpf /tmp/s6-overlay-noarch.tar.xz
@@ -47,8 +45,11 @@ SHELL ["/bin/bash", "-c"]
 
 # Install useful linux packages
 COPY packages.txt /tmp/packages.txt
-RUN apt update && \
-    apt install -yq $(cat /tmp/packages.txt) && \
+RUN apt update -yq && \
+    apt install -yq --no-install-recommends software-properties-common && \
+    add-apt-repository -y ppa:deadsnakes/ppa && \
+    apt update -yq && \
+    apt install -yq --no-install-recommends $(cat /tmp/packages.txt) && \
     rm -rf /var/lib/apt/lists
 
 # Install Github CLI
