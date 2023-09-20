@@ -99,7 +99,7 @@ RUN set -ex; \
 COPY requirements.txt /tmp/requirements.txt
 RUN set -ex; \
     \
-    pip install -r /tmp/requirements.txt; \
+    pip install -r /tmp/requirements.txt; 
 
 # Install VS Code Server
 ARG CODESERVER_VERSION=v4.7.1
